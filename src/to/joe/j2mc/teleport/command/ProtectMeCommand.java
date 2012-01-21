@@ -18,10 +18,12 @@ public class ProtectMeCommand extends MasterCommand {
     public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
         if (isPlayer && player.hasPermission("j2mc.teleport.protectable")) {
             if (player.hasPermission("j2mc.teleport.protected")) {
-                J2MC_Manager.getPermissions().delFlag(player, 'p', true);
+                J2MC_Manager.getPermissions().delFlag(player, 'p');
+                ((J2MC_Teleport) plugin).protectList.set(player.getName(), false);
                 player.sendMessage(ChatColor.RED + "You are now no longer protected from teleportation");
             } else {
-                J2MC_Manager.getPermissions().addFlag(player, 'p', true);
+                J2MC_Manager.getPermissions().addFlag(player, 'p');
+                ((J2MC_Teleport) plugin).protectList.set(player.getName(), true);
                 player.sendMessage(ChatColor.RED + "You are protected from teleportation");
             }
         }
