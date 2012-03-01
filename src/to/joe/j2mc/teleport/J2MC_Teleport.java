@@ -19,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import to.joe.j2mc.core.J2MC_Manager;
 import to.joe.j2mc.teleport.command.*;
+import to.joe.j2mc.teleport.command.admin.HomeInvasionCommand;
 
 public class J2MC_Teleport extends JavaPlugin implements Listener {
 
@@ -69,6 +70,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         this.getCommand("spawn").setExecutor(new SpawnCommand(this));
         this.getCommand("tp").setExecutor(new TeleportCommand(this));
         this.getCommand("warp").setExecutor(new WarpCommand(this));
+        this.getCommand("hi").setExecutor(new HomeInvasionCommand(this));
 
         this.getLogger().info("Teleport module enabled");
     }
