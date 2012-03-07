@@ -4,3 +4,25 @@ version: 0.0prealpha
 website: http://forums.joe.to
 author: J2 Minecraft Plugin Team
 description: Teleport module.
+commands:
+  home:
+    description: go home
+    usage: /home <home name>
+  protectme:
+    description: protect yourself
+    usage: /protectme
+  sethome:
+    description: set a home
+    usage: /sethome <home name>
+  spawn:
+    description: go to spawn
+    usage: /spawn
+  teleport:
+    description: teleport to someone
+    usage: /tp <player name>
+  warp:
+    description: wurp
+    usage: /warp or /warp <warp name>
+  hi:
+    description: they see me invading your homes
+    usage: /hi <playername> or /hi <playername> <home name>
