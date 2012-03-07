@@ -4,4 +4,3 @@ version: 0.0prealpha
 website: http://forums.joe.to
 author: J2 Minecraft Plugin Team
 description: Teleport module.
-depend: J2MC_Core
