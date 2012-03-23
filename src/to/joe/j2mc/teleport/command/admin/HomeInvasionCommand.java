@@ -7,7 +7,6 @@ import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import to.joe.j2mc.core.J2MC_Manager;
 import to.joe.j2mc.core.command.MasterCommand;
 import to.joe.j2mc.teleport.J2MC_Teleport;
 
@@ -22,7 +21,7 @@ public class HomeInvasionCommand extends MasterCommand{
     
     @Override
     public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
-        if(isPlayer && J2MC_Manager.getPermissions().isAdmin(player.getName())){
+        if(isPlayer && player.hasPermission("j2mc.core.admin")){
             if(args.length == 1){
                 String target = args[0];
                 final HashMap<String, Location> warps = plugin.getWarps(target);
