@@ -1,6 +1,6 @@
 name: J2MC_Teleport
 main: to.joe.j2mc.teleport.J2MC_Teleport
-version: 0.0prealpha
+version: 1.0
 website: http://forums.joe.to
 author: J2 Minecraft Plugin Team
 description: Teleport module.
@@ -8,21 +8,56 @@ commands:
   home:
     description: go home
     usage: /home <home name>
+    permission: j2mc.teleport.home.visit
+    permission-message: You may not use homes
   protectme:
-    description: protect yourself
+    description: protect yourself from teleports
     usage: /protectme
+    permission: j2mc.teleport.protectable
+    permission-message: You may not protect yourself
   sethome:
     description: set a home
     usage: /sethome <home name>
+    permission: j2mc.teleport.home.visit
+    permission-message: You may not use homes
   spawn:
     description: go to spawn
     usage: /spawn
+    permission: j2mc.teleport.spawn.visit
+    permission-message: No spawn for you
   teleport:
     description: teleport to someone
     usage: /tp <player name>
+    permission: j2mc.teleport.to
+    permission-message: You may not teleport
   warp:
-    description: wurp
-    usage: /warp or /warp <warp name>
+    description: warp
+    usage: |
+            /warp
+            /warp <warp name>
+    permission: j2mc.teleport.warp.visit
+    permission-message: You may not warp
   hi:
     description: they see me invading your homes
-    usage: /hi <playername> or /hi <playername> <home name>
+    usage: |
+            /hi <playername>
+            /hi <playername> <home name>
+    permission: j2mc.teleport.home.invade
+    permission-message: Hello to you too
+permissions:
+  j2mc.teleport.home.visit:
+    description: Homes
+  j2mc.teleport.home.invade:
+    description muahahaah
+  j2mc.teleport.protectable:
+    description: TP Protect
+  j2mc.teleport.spawn.visit:
+    description: Visit spawn
+  j2mc.teleport.spawn.send:
+    description: Send others to spawn
+  j2mc.teleport.to:
+    description: teleport
+  j2mc.teleport.admin:
+    description: telegrab
+  j2mc.teleport.warp.visit:
+    description: Warp warp warp

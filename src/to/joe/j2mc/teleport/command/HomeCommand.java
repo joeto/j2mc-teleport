@@ -18,9 +18,9 @@ public class HomeCommand extends MasterCommand {
 
     @Override
     public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
-        if (isPlayer && player.hasPermission("j2mc.teleport.home.visit")) {
+        if (isPlayer) {
             if (args.length == 0) {
-                final HashMap<String, Location> warps = ((J2MC_Teleport) plugin).getWarps(player.getName());
+                final HashMap<String, Location> warps = ((J2MC_Teleport) this.plugin).getWarps(player.getName());
                 if (warps.size() == 0) {
                     player.sendMessage(ChatColor.RED + "You have no homes available.");
                     player.sendMessage(ChatColor.RED + "Use the command /sethome");
@@ -37,10 +37,10 @@ public class HomeCommand extends MasterCommand {
                     player.sendMessage(ChatColor.RED + "To go to a home, say /home homename");
                 }
             } else {
-                final Location location = ((J2MC_Teleport) plugin).getNamedWarp(player.getName(), args[0]);
+                final Location location = ((J2MC_Teleport) this.plugin).getNamedWarp(player.getName(), args[0]);
                 if (location != null) {
                     player.sendMessage(ChatColor.RED + "Whoosh!");
-                    ((J2MC_Teleport) plugin).teleport(player, location);
+                    ((J2MC_Teleport) this.plugin).teleport(player, location);
                 } else {
                     player.sendMessage(ChatColor.RED + "That home does not exist. For a list, say /home");
                 }

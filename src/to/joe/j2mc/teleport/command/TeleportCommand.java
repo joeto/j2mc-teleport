@@ -17,7 +17,7 @@ public class TeleportCommand extends MasterCommand {
 
     @Override
     public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
-        if (isPlayer && player.hasPermission("j2mc.teleport.to")) {
+        if (isPlayer) {
             if (args.length == 0) {
                 player.sendMessage(ChatColor.RED + "Usage: /tp playername");
                 return;
@@ -30,7 +30,7 @@ public class TeleportCommand extends MasterCommand {
                 } else {
                     target = J2MC_Manager.getVisibility().getPlayer(targetName, player);
                 }
-            } catch (BadPlayerMatchException e) {
+            } catch (final BadPlayerMatchException e) {
                 player.sendMessage(ChatColor.RED + e.getMessage());
                 return;
             }
@@ -39,9 +39,9 @@ public class TeleportCommand extends MasterCommand {
             } else if (target.getName().equalsIgnoreCase(player.getName())) {
                 player.sendMessage(ChatColor.RED + "Can't teleport to yourself");
             } else {
-                ((J2MC_Teleport) plugin).teleport(player, target.getLocation());
+                ((J2MC_Teleport) this.plugin).teleport(player, target.getLocation());
                 player.sendMessage("OH GOD I'M FLYING AAAAAAAAH");
-                plugin.getLogger().info(player.getName() + " teleported to " + target.getName());
+                this.plugin.getLogger().info(player.getName() + " teleported to " + target.getName());
             }
         }
     }

@@ -53,7 +53,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
 
     @Override
     public void onEnable() {
-        this.protectList = YamlConfiguration.loadConfiguration(new File(getDataFolder(), "protected.yml"));
+        this.protectList = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "protected.yml"));
         this.warps = new HashMap<String, HashMap<String, Location>>();
         //Handles reloads!
         for (final Player player : this.getServer().getOnlinePlayers()) {
@@ -108,10 +108,10 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
     private void playerJoin(String name) {
         final HashMap<String, Location> playerWarps = new HashMap<String, Location>();
         try {
-            PreparedStatement ps = J2MC_Manager.getMySQL().getFreshPreparedStatementHotFromTheOven("SELECT `warp_name`,`world`,`x`,`y`,`z`,`pitch`,`yaw` FROM `teleport` WHERE `owner`= ? and `server_id`= ?");
+            final PreparedStatement ps = J2MC_Manager.getMySQL().getFreshPreparedStatementHotFromTheOven("SELECT `warp_name`,`world`,`x`,`y`,`z`,`pitch`,`yaw` FROM `teleport` WHERE `owner`= ? and `server_id`= ?");
             ps.setString(0, name);
             ps.setInt(1, J2MC_Manager.getServerID());
-            ResultSet resultSet = ps.executeQuery();
+            final ResultSet resultSet = ps.executeQuery();
             if (resultSet != null) {
                 while (resultSet.next()) {
                     final World world = this.getServer().getWorld(resultSet.getString("world"));
