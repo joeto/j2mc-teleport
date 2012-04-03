@@ -57,10 +57,10 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         this.warps = new HashMap<String, HashMap<String, Location>>();
         //Handles reloads!
         for (final Player player : this.getServer().getOnlinePlayers()) {
-            this.playerJoin(player.getName());
+            this.playerJoin(player);
         }
 
-        this.playerJoin("");//public warps
+        this.warpLoad("");//public warps
 
         this.getServer().getPluginManager().registerEvents(this, this);
 
@@ -77,10 +77,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        this.playerJoin(event.getPlayer().getName());
-        if (this.protectList.getBoolean(event.getPlayer().getName(), false)) {
-            J2MC_Manager.getPermissions().addFlag(event.getPlayer(), 'p');
-        }
+        this.playerJoin(event.getPlayer());
     }
 
     @EventHandler
@@ -105,7 +102,14 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         player.teleport(location);
     }
 
-    private void playerJoin(String name) {
+    private void playerJoin(Player player) {
+        this.warpLoad(player.getName());
+        if (this.protectList.getBoolean(player.getName(), false)) {
+            J2MC_Manager.getPermissions().addFlag(player, 'p');
+        }
+    }
+    
+    public void warpLoad(String name){
         final HashMap<String, Location> playerWarps = new HashMap<String, Location>();
         try {
             final PreparedStatement ps = J2MC_Manager.getMySQL().getFreshPreparedStatementHotFromTheOven("SELECT `warp_name`,`world`,`x`,`y`,`z`,`pitch`,`yaw` FROM `teleport` WHERE `owner`= ? and `server_id`= ?");
