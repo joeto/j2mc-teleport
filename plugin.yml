@@ -25,7 +25,8 @@ commands:
     usage: /spawn
     permission: j2mc.teleport.spawn.visit
     permission-message: No spawn for you
-  teleport:
+  tp:
+    aliases: ['teleport']
     description: teleport to someone
     usage: /tp <player name>
     permission: j2mc.teleport.to
@@ -57,7 +58,23 @@ permissions:
     description: Send others to spawn
   j2mc.teleport.to:
     description: teleport
-  j2mc.teleport.admin:
-    description: telegrab
+  j2mc.teleport.override:
+    description: able to teleport to anyone
   j2mc.teleport.warp.visit:
     description: Warp warp warp
+  j2mc.teleport.home.invade:
+    description: Evil evilness
+  j2mc.teleport.normaluser:
+    description: Normal
+    children:
+      j2mc.teleport.home.visit: true
+      j2mc.teleport.spawn.visit: true
+      j2mc.teleport.to: true
+      j2mc.teleport.warp.visit: true
+  j2mc.teleport.admin:
+    description: Admin
+    children:
+      j2mc.teleport.home.invade: true
+      j2mc.teleport.spawn.send: true
+      j2mc.teleport.override: true
+      j2mc.teleport.home.invade: true

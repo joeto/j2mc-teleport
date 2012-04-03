@@ -25,16 +25,12 @@ public class TeleportCommand extends MasterCommand {
             final String targetName = args[0];
             Player target = null;
             try {
-                if (player.hasPermission("j2mc.teleport.admin")) {
-                    target = J2MC_Manager.getVisibility().getPlayer(targetName, null);
-                } else {
-                    target = J2MC_Manager.getVisibility().getPlayer(targetName, player);
-                }
+                target = J2MC_Manager.getVisibility().getPlayer(targetName, player);
             } catch (final BadPlayerMatchException e) {
                 player.sendMessage(ChatColor.RED + e.getMessage());
                 return;
             }
-            if (target.hasPermission("j2mc.teleport.protected") && !player.hasPermission("j2mc.teleport.admin")) {
+            if (target.hasPermission("j2mc.teleport.protected") && !player.hasPermission("j2mc.teleport.override")) {
                 player.sendMessage(ChatColor.RED + "Cannot teleport to protected player.");
             } else if (target.getName().equalsIgnoreCase(player.getName())) {
                 player.sendMessage(ChatColor.RED + "Can't teleport to yourself");
