@@ -1,6 +1,7 @@
 package to.joe.j2mc.teleport;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.HashMap;
@@ -24,10 +25,12 @@ import to.joe.j2mc.teleport.command.admin.HomeInvasionCommand;
 public class J2MC_Teleport extends JavaPlugin implements Listener {
 
     private HashMap<String, HashMap<String, Location>> warps;
-    public FileConfiguration protectList;
+    private FileConfiguration protectList;
+    private File protectListFile;
 
-    public void addWarp(String owner, Location location) {
-        //TODO omg
+    public void addWarp(String owner, String name, Location location) {
+        this.warps.get(owner).put(name, location);
+
     }
 
     public Location getNamedWarp(String owner, String name) {
@@ -51,9 +54,26 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         this.getLogger().info("Teleport module disabled");
     }
 
+    public boolean isProtected(String name) {
+        return this.protectList.getBoolean(name.toLowerCase(), false);
+    }
+
+    public void setProtected(String name, boolean protect) {
+        this.protectList.set(name.toLowerCase(), protect);
+        try {
+            this.protectList.save(this.protectListFile);
+        } catch (final IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onEnable() {
-        this.protectList = YamlConfiguration.loadConfiguration(new File(this.getDataFolder(), "protected.yml"));
+        if (!this.getDataFolder().exists()) {
+            this.getDataFolder().mkdirs();
+        }
+        this.protectListFile = new File(this.getDataFolder(), "protected.yml");
+        this.protectList = YamlConfiguration.loadConfiguration(this.protectListFile);
         this.warps = new HashMap<String, HashMap<String, Location>>();
         //Handles reloads!
         for (final Player player : this.getServer().getOnlinePlayers()) {
@@ -108,8 +128,8 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
             J2MC_Manager.getPermissions().addFlag(player, 'p');
         }
     }
-    
-    public void warpLoad(String name){
+
+    public void warpLoad(String name) {
         final HashMap<String, Location> playerWarps = new HashMap<String, Location>();
         try {
             final PreparedStatement ps = J2MC_Manager.getMySQL().getFreshPreparedStatementHotFromTheOven("SELECT `warp_name`,`world`,`x`,`y`,`z`,`pitch`,`yaw` FROM `teleport` WHERE `owner`= ? and `server_id`= ?");

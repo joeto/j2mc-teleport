@@ -19,7 +19,7 @@ public class SetHomeCommand extends MasterCommand {
             if (args.length == 0) {
                 player.sendMessage(ChatColor.RED + "Usage: /sethome name");
             } else {
-                ((J2MC_Teleport) this.plugin).addWarp(player.getName(), player.getLocation());
+                ((J2MC_Teleport) this.plugin).addWarp(player.getName(), args[0], player.getLocation());
                 player.sendMessage(ChatColor.RED + "Home created");
             }
         }
