@@ -45,6 +45,11 @@ commands:
             /hi <playername> <home name>
     permission: j2mc.teleport.home.invade
     permission-message: Hello to you too
+  tphere:
+    description: Grab a user
+    usage: /tphere <playername>
+    permission: j2mc.teleport.tphere
+    permission-message: Sorry dave
 permissions:
   j2mc.teleport.home.visit:
     description: Homes
@@ -64,6 +69,8 @@ permissions:
     description: Warp warp warp
   j2mc.teleport.home.invade:
     description: Evil evilness
+  j2mc.teleport.tphere:
+    description: Yoink
   j2mc.teleport.normaluser:
     description: Normal
     children:
@@ -78,3 +85,4 @@ permissions:
       j2mc.teleport.spawn.send: true
       j2mc.teleport.override: true
       j2mc.teleport.home.invade: true
+      j2mc.teleport.tphere: true
