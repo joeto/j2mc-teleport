@@ -31,7 +31,21 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
 
     public void addWarp(String owner, String name, Location location) {
         this.warps.get(owner).put(name, location);
-
+        PreparedStatement ps;
+        try {
+            ps = J2MC_Manager.getMySQL().getFreshPreparedStatementHotFromTheOven("insert into `teleport` (`warp_name`,`world`,`x`,`y`,`z`,`pitch`,`yaw`,`owner`,`server_id`) values (?,?,?,?,?,?,?,?,?)");
+        
+        ps.setString(0, name);
+        ps.setString(1,location.getWorld().getName());
+        ps.setDouble(2,location.getX());
+        ps.setDouble(3, location.getY());
+        ps.setDouble(4, location.getZ());
+        ps.setFloat(5, location.getPitch());
+        ps.setFloat(6, location.getYaw());
+        ps.setString(7,owner);
+        ps.setInt(8, J2MC_Manager.getServerID());
+        } catch (Exception e) {
+        }
     }
 
     public Location getNamedWarp(String owner, String name) {
