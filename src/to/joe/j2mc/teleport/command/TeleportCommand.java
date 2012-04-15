@@ -30,7 +30,7 @@ public class TeleportCommand extends MasterCommand {
                 player.sendMessage(ChatColor.RED + e.getMessage());
                 return;
             }
-            if (((J2MC_Teleport) this.plugin).isProtected(player.getName()) && !player.hasPermission("j2mc.teleport.override")) {
+            if (((J2MC_Teleport) this.plugin).isProtected(target.getName()) && !player.hasPermission("j2mc.teleport.override")) {
                 player.sendMessage(ChatColor.RED + "Cannot teleport to protected player.");
             } else if (target.getName().equalsIgnoreCase(player.getName())) {
                 player.sendMessage(ChatColor.RED + "Can't teleport to yourself");
