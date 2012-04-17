@@ -44,6 +44,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         ps.setFloat(6, location.getYaw());
         ps.setString(7,owner);
         ps.setInt(8, J2MC_Manager.getServerID());
+        ps.executeUpdate();
         } catch (Exception e) {
         }
     }
