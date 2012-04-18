@@ -34,18 +34,18 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         PreparedStatement ps;
         try {
             ps = J2MC_Manager.getMySQL().getFreshPreparedStatementHotFromTheOven("insert into `teleport` (`warp_name`,`world`,`x`,`y`,`z`,`pitch`,`yaw`,`owner`,`server_id`) values (?,?,?,?,?,?,?,?,?)");
-        
-        ps.setString(0, name);
-        ps.setString(1,location.getWorld().getName());
-        ps.setDouble(2,location.getX());
-        ps.setDouble(3, location.getY());
-        ps.setDouble(4, location.getZ());
-        ps.setFloat(5, location.getPitch());
-        ps.setFloat(6, location.getYaw());
-        ps.setString(7,owner);
-        ps.setInt(8, J2MC_Manager.getServerID());
-        ps.executeUpdate();
+            ps.setString(1, name);
+            ps.setString(2,location.getWorld().getName());
+            ps.setDouble(3,location.getX());
+            ps.setDouble(4, location.getY());
+            ps.setDouble(5, location.getZ());
+            ps.setFloat(6, location.getPitch());
+            ps.setFloat(7, location.getYaw());
+            ps.setString(8,owner);
+            ps.setInt(9, J2MC_Manager.getServerID());
+            ps.executeUpdate();
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -150,8 +150,8 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         final HashMap<String, Location> playerWarps = new HashMap<String, Location>();
         try {
             final PreparedStatement ps = J2MC_Manager.getMySQL().getFreshPreparedStatementHotFromTheOven("SELECT `warp_name`,`world`,`x`,`y`,`z`,`pitch`,`yaw` FROM `teleport` WHERE `owner`= ? and `server_id`= ?");
-            ps.setString(0, name);
-            ps.setInt(1, J2MC_Manager.getServerID());
+            ps.setString(1, name);
+            ps.setInt(2, J2MC_Manager.getServerID());
             final ResultSet resultSet = ps.executeQuery();
             if (resultSet != null) {
                 while (resultSet.next()) {
