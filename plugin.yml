@@ -54,7 +54,7 @@ permissions:
   j2mc.teleport.home.visit:
     description: Homes
   j2mc.teleport.home.invade:
-    description muahahaah
+    description: muahahaah
   j2mc.teleport.protectable:
     description: TP Protect
   j2mc.teleport.spawn.visit:
