@@ -26,13 +26,11 @@ public class HomeCommand extends MasterCommand {
                     player.sendMessage(ChatColor.RED + "Use the command /sethome");
                 } else {
                     final StringBuilder homesList = new StringBuilder();
-                    final boolean first = true;
                     for (final String warpName : warps.keySet()) {
-                        if (!first) {
-                            homesList.append(", ");
-                        }
                         homesList.append(warpName);
+                        homesList.append(", ");
                     }
+                    homesList.setLength(homesList.length() - 2);
                     player.sendMessage(ChatColor.RED + "Homes: " + ChatColor.WHITE + homesList);
                     player.sendMessage(ChatColor.RED + "To go to a home, say /home homename");
                 }
