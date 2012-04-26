@@ -11,34 +11,42 @@ import to.joe.j2mc.teleport.J2MC_Teleport;
 
 public class TeleportCommand extends MasterCommand {
 
-    public TeleportCommand(J2MC_Teleport plugin) {
-        super(plugin);
-    }
+	J2MC_Teleport plugin;
 
-    @Override
-    public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
-        if (isPlayer) {
-            if (args.length == 0) {
-                player.sendMessage(ChatColor.RED + "Usage: /tp playername");
-                return;
-            }
-            final String targetName = args[0];
-            Player target = null;
-            try {
-                target = J2MC_Manager.getVisibility().getPlayer(targetName, player);
-            } catch (final BadPlayerMatchException e) {
-                player.sendMessage(ChatColor.RED + e.getMessage());
-                return;
-            }
-            if (((J2MC_Teleport) this.plugin).isProtected(target.getName()) && !player.hasPermission("j2mc.teleport.override")) {
-                player.sendMessage(ChatColor.RED + "Cannot teleport to protected player.");
-            } else if (target.getName().equalsIgnoreCase(player.getName())) {
-                player.sendMessage(ChatColor.RED + "Can't teleport to yourself");
-            } else {
-                ((J2MC_Teleport) this.plugin).teleport(player, target.getLocation());
-                player.sendMessage("OH GOD I'M FLYING AAAAAAAAH");
-                this.plugin.getLogger().info(player.getName() + " teleported to " + target.getName());
-            }
-        }
-    }
+	public TeleportCommand(J2MC_Teleport plugin) {
+		super(plugin);
+		this.plugin = plugin;
+	}
+
+	@Override
+	public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
+		if (isPlayer) {
+			if (this.plugin.tpBannedPlayers.contains(sender.getName())) {
+				player.sendMessage(ChatColor.RED + "Your teleport privileges have been temporarly revoked.");
+				player.sendMessage(ChatColor.RED + "Try again in a few minutes.");
+				return;
+			}
+			if (args.length == 0) {
+				player.sendMessage(ChatColor.RED + "Usage: /tp playername");
+				return;
+			}
+			final String targetName = args[0];
+			Player target = null;
+			try {
+				target = J2MC_Manager.getVisibility().getPlayer(targetName, player);
+			} catch (final BadPlayerMatchException e) {
+				player.sendMessage(ChatColor.RED + e.getMessage());
+				return;
+			}
+			if (((J2MC_Teleport) this.plugin).isProtected(target.getName()) && !player.hasPermission("j2mc.teleport.override")) {
+				player.sendMessage(ChatColor.RED + "Cannot teleport to protected player.");
+			} else if (target.getName().equalsIgnoreCase(player.getName())) {
+				player.sendMessage(ChatColor.RED + "Can't teleport to yourself");
+			} else {
+				((J2MC_Teleport) this.plugin).teleport(player, target.getLocation());
+				player.sendMessage("OH GOD I'M FLYING AAAAAAAAH");
+				this.plugin.getLogger().info(player.getName() + " teleported to " + target.getName());
+			}
+		}
+	}
 }
