@@ -18,6 +18,11 @@ public class TeleportCommand extends MasterCommand {
     @Override
     public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
         if (isPlayer) {
+            if (((J2MC_Teleport) this.plugin).tpBannedPlayers.containsKey(sender.getName())) {
+                player.sendMessage(ChatColor.RED + "Your teleport privileges have been temporarly revoked.");
+                player.sendMessage(ChatColor.RED + "Try again in a few minutes.");
+                return;
+            }
             if (args.length == 0) {
                 player.sendMessage(ChatColor.RED + "Usage: /tp playername");
                 return;

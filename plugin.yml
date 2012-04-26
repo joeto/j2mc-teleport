@@ -50,6 +50,11 @@ commands:
     usage: /tphere <playername>
     permission: j2mc.teleport.tphere
     permission-message: Sorry dave
+  tpban:
+    description: Ban a user from using /tp for five minutes
+    usage: /tpban <playername>
+    permission: j2mc.teleport.ban
+    permission-message: You may not use /tpban
 permissions:
   j2mc.teleport.home.visit:
     description: Homes
@@ -71,6 +76,8 @@ permissions:
     description: Evil evilness
   j2mc.teleport.tphere:
     description: Yoink
+  j2mc.teleport.ban:
+    description: TP Ban
   j2mc.teleport.normaluser:
     description: Normal
     children:
@@ -86,3 +93,4 @@ permissions:
       j2mc.teleport.override: true
       j2mc.teleport.home.invade: true
       j2mc.teleport.tphere: true
+      j2mc.teleport.ban: true
