@@ -22,25 +22,30 @@ public class HomeInvasionCommand extends MasterCommand {
     @Override
     public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
         if (isPlayer) {
+            if (args.length == 0) {
+                sender.sendMessage(ChatColor.RED + "Usage: /homeinvasion <target player>");
+                sender.sendMessage(ChatColor.RED + "Usage: /homeinvasion <target player> <target home>");
+                return;
+            }
             if (args.length == 1) {
                 final String target = args[0];
+                this.plugin.warpLoad(target);
                 final HashMap<String, Location> warps = this.plugin.getWarps(target);
                 if (warps.size() == 0) {
                     player.sendMessage(ChatColor.RED + "User has no homes.");
                 } else {
                     final StringBuilder homesList = new StringBuilder();
-                    final boolean first = true;
                     for (final String warpName : warps.keySet()) {
-                        if (!first) {
-                            homesList.append(", ");
-                        }
                         homesList.append(warpName);
+                        homesList.append(", ");
                     }
+                    homesList.setLength(homesList.length() - 2);
                     player.sendMessage(ChatColor.RED + target + "'s homes: " + ChatColor.WHITE + homesList);
                     player.sendMessage(ChatColor.RED + "To go to a home, say /hi " + target + " home");
                 }
             } else {
                 final String target = args[0];
+                this.plugin.warpLoad(target);
                 final String home = args[1];
                 final Location location = this.plugin.getNamedWarp(target, home);
                 if (location != null) {
