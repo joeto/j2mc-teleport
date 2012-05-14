@@ -44,7 +44,7 @@ public class TeleportBanCommand extends MasterCommand {
                         }
                     }
                 }, 6000L);
-                ((J2MC_Teleport) this.plugin).tpBannedPlayers.put(target, id);
+                ((J2MC_Teleport) this.plugin).tpBannedPlayers.put(target.getName(), id);
                 target.sendMessage(ChatColor.RED + "Your teleport privileges have been temporarly revoked.");
                 J2MC_Manager.getCore().adminAndLog(ChatColor.RED + sender.getName() + " revoked " + properTargetName + "'s teleport privileges.");
             }

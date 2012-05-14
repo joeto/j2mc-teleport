@@ -29,7 +29,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
     private HashMap<String, HashMap<String, Location>> warps;
     private FileConfiguration protectList;
     private File protectListFile;
-    public HashMap<Player, Integer> tpBannedPlayers = new HashMap<Player, Integer>();
+    public HashMap<String, Integer> tpBannedPlayers = new HashMap<String, Integer>();
 
     public void addWarp(String owner, String name, Location location) {
         this.warps.get(owner).put(name, location);
