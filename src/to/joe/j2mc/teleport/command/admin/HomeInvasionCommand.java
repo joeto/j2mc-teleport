@@ -49,7 +49,7 @@ public class HomeInvasionCommand extends MasterCommand {
                 final String home = args[1];
                 final Location location = this.plugin.getNamedWarp(target, home);
                 if (location != null) {
-                    player.sendMessage(ChatColor.RED + "Whoosh!");
+                    player.sendMessage(ChatColor.RED + "WHAM! THUD! CRASH!");
                     this.plugin.teleport(player, location);
                 } else {
                     player.sendMessage(ChatColor.RED + "That home does not exist. For a list, say /hi " + target);
