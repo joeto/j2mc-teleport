@@ -25,13 +25,11 @@ public class WarpCommand extends MasterCommand {
                     player.sendMessage(ChatColor.RED + "No warps available");
                 } else {
                     final StringBuilder warpsList = new StringBuilder();
-                    final boolean first = true;
                     for (final String warpName : warps.keySet()) {
-                        if (!first) {
-                            warpsList.append(", ");
-                        }
                         warpsList.append(warpName);
+                        warpsList.append(", ");
                     }
+                    warpsList.setLength(warpsList.length() - 2);
                     player.sendMessage(ChatColor.RED + "Warps: " + ChatColor.WHITE + warpsList);
                     player.sendMessage(ChatColor.RED + "To go to a warp, say /warp warpname");
                 }
