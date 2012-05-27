@@ -36,8 +36,8 @@ public class WarpCommand extends MasterCommand {
             } else {
                 final Location target = ((J2MC_Teleport) this.plugin).getNamedWarp("", args[0]);
                 if ((target != null)) {
-                    player.sendMessage(ChatColor.RED + "Welcome to: " + ChatColor.LIGHT_PURPLE + target);
-                    this.plugin.getLogger().info(ChatColor.AQUA + "Player " + player.getName() + " went to warp " + target);
+                    player.sendMessage(ChatColor.RED + "Welcome to: " + ChatColor.LIGHT_PURPLE + args[0]);
+                    this.plugin.getLogger().info(ChatColor.AQUA + "Player " + player.getName() + " went to warp " + args[0]);
                     ((J2MC_Teleport) this.plugin).teleport(player, target);
                 } else {
                     player.sendMessage(ChatColor.RED + "Warp does not exist. For a list, say /warp");
