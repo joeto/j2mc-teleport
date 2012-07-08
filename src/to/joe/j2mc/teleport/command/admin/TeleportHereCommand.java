@@ -23,6 +23,7 @@ public class TeleportHereCommand extends MasterCommand {
         if (isPlayer) {
             if (args.length != 1) {
                 player.sendMessage(ChatColor.RED + "Usage: /tphere <player>");
+                return;
             }
             Player target = null;
             try {
