@@ -42,6 +42,9 @@ public class TeleportCommand extends MasterCommand {
             } else {
                 ((J2MC_Teleport) this.plugin).teleport(player, target.getLocation());
                 player.sendMessage("OH GOD I'M FLYING AAAAAAAAH");
+                if (target.canSee(player)) {
+                    target.sendMessage(ChatColor.BOLD + player.getDisplayName() + ChatColor.RESET + ChatColor.AQUA + " teleported to you.");
+                }
                 this.plugin.getLogger().info(player.getName() + " teleported to " + target.getName());
             }
         }
