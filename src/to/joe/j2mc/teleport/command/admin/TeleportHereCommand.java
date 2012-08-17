@@ -30,6 +30,7 @@ public class TeleportHereCommand extends MasterCommand {
                 target = J2MC_Manager.getVisibility().getPlayer(args[0], sender);
             } catch (BadPlayerMatchException e) {
                 player.sendMessage(ChatColor.RED + e.getMessage());
+                return;
             }
             if (target.getName().equalsIgnoreCase(player.getName())) {
                 player.sendMessage(ChatColor.RED + "Can't teleport yourself to yourself. Derp.");
