@@ -20,6 +20,11 @@ commands:
     usage: /sethome <home name>
     permission: j2mc.teleport.home.visit
     permission-message: You may not use homes
+  removehome:
+    description: remove a home
+    usage: /remove home <home name>
+    permission: j2mc.teleport.home.visit
+    permission-message: You may not use homes
   spawn:
     description: go to spawn
     usage: /spawn

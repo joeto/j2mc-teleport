@@ -50,6 +50,18 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
+    
+    public void deleteWarp(String owner, String name) {
+        this.warps.get(owner).remove(name);
+        try {
+            PreparedStatement ps = J2MC_Manager.getMySQL().getFreshPreparedStatementHotFromTheOven("DELETE FROM `teleport` WHERE `warp_name` = ? AND `owner` = ?");
+            ps.setString(1, name);
+            ps.setString(2, owner);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public Location getNamedWarp(String owner, String name) {
         Location location;
@@ -103,6 +115,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         this.getServer().getPluginManager().registerEvents(this, this);
 
         this.getCommand("home").setExecutor(new HomeCommand(this));
+        this.getCommand("removehome").setExecutor(new RemoveHomeCommand(this));
         this.getCommand("protectme").setExecutor(new ProtectMeCommand(this));
         this.getCommand("sethome").setExecutor(new SetHomeCommand(this));
         this.getCommand("spawn").setExecutor(new SpawnCommand(this));
