@@ -41,6 +41,9 @@ public class TeleportCommand extends MasterCommand {
                 player.sendMessage(ChatColor.RED + "Can't teleport to yourself");
             } else {
                 ((J2MC_Teleport) this.plugin).teleport(player, target.getLocation());
+                if (target.isFlying() && player.getAllowFlight()) {
+                    player.setFlying(true);
+                }
                 player.sendMessage("OH GOD I'M FLYING AAAAAAAAH");
                 if (target.canSee(player)) {
                     target.sendMessage(ChatColor.BOLD + player.getDisplayName() + ChatColor.RESET + ChatColor.AQUA + " teleported to you.");
