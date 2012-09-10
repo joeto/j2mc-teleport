@@ -12,7 +12,7 @@ import to.joe.j2mc.teleport.J2MC_Teleport;
 
 public class RemoveHomeCommand extends MasterCommand {
 
-    public RemoveHomeCommand(J2MC_Teleport teleport){
+    public RemoveHomeCommand(J2MC_Teleport teleport) {
         super(teleport);
     }
 
@@ -27,6 +27,7 @@ public class RemoveHomeCommand extends MasterCommand {
                 }
                 if (warps.containsKey(args[0])) {
                     ((J2MC_Teleport) plugin).deleteWarp(player.getName(), args[0]);
+                    player.sendMessage(ChatColor.RED + "Home removed.");
                 } else {
                     player.sendMessage(ChatColor.RED + "You don't have any homes by the name of '" + ChatColor.BOLD + args[0] + ChatColor.RESET + ChatColor.RED + "'");
                 }
@@ -35,5 +36,5 @@ public class RemoveHomeCommand extends MasterCommand {
             }
         }
     }
-    
+
 }
