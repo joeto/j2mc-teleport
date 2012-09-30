@@ -30,7 +30,7 @@ public class TeleportCommand extends MasterCommand {
             final String targetName = args[0];
             Player target = null;
             try {
-                target = J2MC_Manager.getVisibility().getPlayer(targetName, player);
+                target = J2MC_Manager.getVisibility().getPlayer(targetName, player, player.getName());
             } catch (final BadPlayerMatchException e) {
                 player.sendMessage(ChatColor.RED + e.getMessage());
                 return;

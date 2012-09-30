@@ -27,7 +27,7 @@ public class TeleportHereCommand extends MasterCommand {
             }
             Player target = null;
             try {
-                target = J2MC_Manager.getVisibility().getPlayer(args[0], sender);
+                target = J2MC_Manager.getVisibility().getPlayer(args[0], sender, player.getName());
             } catch (BadPlayerMatchException e) {
                 player.sendMessage(ChatColor.RED + e.getMessage());
                 return;
