@@ -1,9 +1,13 @@
 package to.joe.j2mc.teleport.command;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -45,4 +49,31 @@ public class HomeCommand extends MasterCommand {
             }
         }
     }
+    
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+        if (sender instanceof Player) {
+            
+            Player player = (Player) sender;
+            
+            if (args.length == 1) {
+                final HashMap<String, Location> warps = ((J2MC_Teleport) this.plugin).getWarps(player.getName());
+                
+                List<String> sortedWarps = new ArrayList<String>(warps.keySet());
+                Collections.sort(sortedWarps);
+                
+                List<String> potentialMatches = new ArrayList<String>();
+                for (String warp : sortedWarps){
+                    if (warp.startsWith(args[(args.length - 1)])) {
+                        potentialMatches.add(warp);
+                    }
+                }
+                
+                return potentialMatches;
+            }
+        }
+        
+        return new ArrayList<String>();
+    }
+    
 }
