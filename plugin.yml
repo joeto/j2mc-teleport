@@ -36,6 +36,11 @@ commands:
     usage: /tp <player name>
     permission: j2mc.teleport.to
     permission-message: You may not teleport
+  back:
+    description: Teleports you to your last known pre-teleportation location
+    usage: /back
+    permission: j2mc.teleport.back
+    permission-message: You may not use /back
   warp:
     description: warp
     usage: |
@@ -83,6 +88,8 @@ permissions:
     description: Yoink
   j2mc.teleport.ban:
     description: TP Ban
+  j2mc.teleport.back:
+    description: back in black
   j2mc.teleport.normaluser:
     description: Normal
     children:
@@ -90,6 +97,7 @@ permissions:
       j2mc.teleport.spawn.visit: true
       j2mc.teleport.to: true
       j2mc.teleport.warp.visit: true
+      j2mc.teleport.back: true
   j2mc.teleport.admin:
     description: Admin
     children:

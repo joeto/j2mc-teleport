@@ -1,11 +1,5 @@
 package to.joe.j2mc.teleport;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.HashMap;
-
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,13 +10,21 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-
 import to.joe.j2mc.core.J2MC_Manager;
 import to.joe.j2mc.teleport.command.*;
 import to.joe.j2mc.teleport.command.admin.HomeInvasionCommand;
 import to.joe.j2mc.teleport.command.admin.TeleportBanCommand;
 import to.joe.j2mc.teleport.command.admin.TeleportHereCommand;
+import to.joe.j2mc.teleport.util.ImmutableLocation;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 public class J2MC_Teleport extends JavaPlugin implements Listener {
 
@@ -30,6 +32,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
     private FileConfiguration protectList;
     private File protectListFile;
     public HashMap<String, Integer> tpBannedPlayers = new HashMap<String, Integer>();
+    public Map<String, ImmutableLocation> lastLocations = new HashMap<String, ImmutableLocation>();
 
     public void addWarp(String owner, String name, Location location) {
         this.warps.get(owner).put(name, location);
@@ -124,6 +127,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         this.getCommand("hi").setExecutor(new HomeInvasionCommand(this));
         this.getCommand("tphere").setExecutor(new TeleportHereCommand(this));
         this.getCommand("tpban").setExecutor(new TeleportBanCommand(this));
+        this.getCommand("back").setExecutor(new BackCommand(this));
 
         this.getLogger().info("Teleport module enabled");
     }
@@ -138,6 +142,12 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         synchronized (this) {
             this.warps.remove(event.getPlayer().getName());
         }
+    }
+
+    @EventHandler
+    public void onPlayerTeleport(PlayerTeleportEvent event) {
+        Player player = event.getPlayer();
+        this.lastLocations.put(player.getName().toLowerCase(), ImmutableLocation.fromLocation(event.getFrom()));
     }
 
     /**
@@ -160,6 +170,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         if (this.protectList.getBoolean(player.getName(), false)) {
             J2MC_Manager.getPermissions().addFlag(player, 'p');
         }
+        this.lastLocations.put(player.getName().toLowerCase(), ImmutableLocation.fromLocation(player.getLocation()));
     }
 
     public void warpLoad(String name) {

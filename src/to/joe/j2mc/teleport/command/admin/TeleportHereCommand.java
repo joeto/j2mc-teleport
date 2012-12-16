@@ -11,7 +11,7 @@ import to.joe.j2mc.teleport.J2MC_Teleport;
 
 public class TeleportHereCommand extends MasterCommand {
 
-    J2MC_Teleport plugin;
+    private final J2MC_Teleport plugin;
 
     public TeleportHereCommand(J2MC_Teleport teleport) {
         super(teleport);
@@ -25,7 +25,7 @@ public class TeleportHereCommand extends MasterCommand {
                 player.sendMessage(ChatColor.RED + "Usage: /tphere <player>");
                 return;
             }
-            Player target = null;
+            Player target;
             try {
                 target = J2MC_Manager.getVisibility().getPlayer(args[0], sender, player.getName());
             } catch (BadPlayerMatchException e) {

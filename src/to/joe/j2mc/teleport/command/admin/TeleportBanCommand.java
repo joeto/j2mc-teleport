@@ -19,7 +19,7 @@ public class TeleportBanCommand extends MasterCommand {
     public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
         if (args.length == 1) {
             final String targetName = args[0];
-            Player target = null;
+            Player target;
             try {
                 target = J2MC_Manager.getVisibility().getPlayer(targetName, sender);
             } catch (final BadPlayerMatchException e) {

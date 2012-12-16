@@ -21,7 +21,7 @@ public class SpawnCommand extends MasterCommand {
             player.sendMessage(ChatColor.RED + "WHEEEEEEEEEEEEEEE");
             ((J2MC_Teleport) this.plugin).teleport(player, this.plugin.getServer().getWorlds().get(0).getSpawnLocation());
         } else if ((args.length == 1) && sender.hasPermission("j2mc.teleport.spawn.send")) {
-            Player target = null;
+            Player target;
             try {
                 target = J2MC_Manager.getVisibility().getPlayer(args[0], null);
             } catch (final BadPlayerMatchException e) {

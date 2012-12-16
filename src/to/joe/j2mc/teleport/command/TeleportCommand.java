@@ -28,7 +28,7 @@ public class TeleportCommand extends MasterCommand {
                 return;
             }
             final String targetName = args[0];
-            Player target = null;
+            Player target;
             try {
                 target = J2MC_Manager.getVisibility().getPlayer(targetName, player, player.getName());
             } catch (final BadPlayerMatchException e) {
