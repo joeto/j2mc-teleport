@@ -1,5 +1,6 @@
 package to.joe.j2mc.teleport.command;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,6 +18,10 @@ public class BackCommand extends MasterCommand {
     public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
         if (isPlayer) {
             ImmutableLocation loc = ((J2MC_Teleport) plugin).lastLocations.get(player.getName().toLowerCase());
+            if (loc == null) {
+                sender.sendMessage(ChatColor.RED + "Ain't no place to go back to");
+                return;
+            }
             Location target = new Location(loc.getWorld(), loc.getX(), loc.getY(), loc.getZ(), loc.getYaw(), loc.getPitch());
             player.teleport(target);
         }

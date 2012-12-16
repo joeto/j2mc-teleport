@@ -170,7 +170,6 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         if (this.protectList.getBoolean(player.getName(), false)) {
             J2MC_Manager.getPermissions().addFlag(player, 'p');
         }
-        this.lastLocations.put(player.getName().toLowerCase(), ImmutableLocation.fromLocation(player.getLocation()));
     }
 
     public void warpLoad(String name) {
