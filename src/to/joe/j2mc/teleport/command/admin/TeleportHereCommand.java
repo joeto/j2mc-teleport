@@ -9,13 +9,10 @@ import to.joe.j2mc.core.command.MasterCommand;
 import to.joe.j2mc.core.exceptions.BadPlayerMatchException;
 import to.joe.j2mc.teleport.J2MC_Teleport;
 
-public class TeleportHereCommand extends MasterCommand {
-
-    private final J2MC_Teleport plugin;
+public class TeleportHereCommand extends MasterCommand<J2MC_Teleport> {
 
     public TeleportHereCommand(J2MC_Teleport teleport) {
         super(teleport);
-        this.plugin = teleport;
     }
 
     @Override

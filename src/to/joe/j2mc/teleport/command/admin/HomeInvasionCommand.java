@@ -9,13 +9,10 @@ import to.joe.j2mc.teleport.J2MC_Teleport;
 
 import java.util.HashMap;
 
-public class HomeInvasionCommand extends MasterCommand {
-
-    private final J2MC_Teleport plugin;
+public class HomeInvasionCommand extends MasterCommand<J2MC_Teleport> {
 
     public HomeInvasionCommand(J2MC_Teleport teleport) {
         super(teleport);
-        this.plugin = teleport;
     }
 
     @Override

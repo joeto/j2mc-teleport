@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 import to.joe.j2mc.core.command.MasterCommand;
 import to.joe.j2mc.teleport.J2MC_Teleport;
 
-public class WarpCommand extends MasterCommand {
+public class WarpCommand extends MasterCommand<J2MC_Teleport> {
 
     public WarpCommand(J2MC_Teleport plugin) {
         super(plugin);
@@ -38,7 +38,7 @@ public class WarpCommand extends MasterCommand {
                 if ((target != null)) {
                     player.sendMessage(ChatColor.RED + "Welcome to: " + ChatColor.LIGHT_PURPLE + args[0]);
                     this.plugin.getLogger().info(ChatColor.AQUA + "Player " + player.getName() + " went to warp " + args[0]);
-                    ((J2MC_Teleport) this.plugin).teleport(player, target);
+                    this.plugin.teleport(player, target);
                 } else {
                     player.sendMessage(ChatColor.RED + "Warp does not exist. For a list, say /warp");
                 }

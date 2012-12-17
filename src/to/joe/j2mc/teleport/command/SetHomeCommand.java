@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import to.joe.j2mc.core.command.MasterCommand;
 import to.joe.j2mc.teleport.J2MC_Teleport;
 
-public class SetHomeCommand extends MasterCommand {
+public class SetHomeCommand extends MasterCommand<J2MC_Teleport> {
 
     public SetHomeCommand(J2MC_Teleport teleport) {
         super(teleport);
@@ -19,7 +19,7 @@ public class SetHomeCommand extends MasterCommand {
             if (args.length == 0) {
                 player.sendMessage(ChatColor.RED + "Usage: /sethome name");
             } else {
-                ((J2MC_Teleport) this.plugin).addWarp(player.getName(), args[0], player.getLocation());
+                this.plugin.addWarp(player.getName(), args[0], player.getLocation());
                 player.sendMessage(ChatColor.RED + "Home created");
             }
         }

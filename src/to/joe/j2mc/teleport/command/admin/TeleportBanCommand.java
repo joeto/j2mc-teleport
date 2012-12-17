@@ -9,7 +9,7 @@ import to.joe.j2mc.core.command.MasterCommand;
 import to.joe.j2mc.core.exceptions.BadPlayerMatchException;
 import to.joe.j2mc.teleport.J2MC_Teleport;
 
-public class TeleportBanCommand extends MasterCommand {
+public class TeleportBanCommand extends MasterCommand<J2MC_Teleport> {
 
     public TeleportBanCommand(J2MC_Teleport teleport) {
         super(teleport);
@@ -27,7 +27,7 @@ public class TeleportBanCommand extends MasterCommand {
                 return;
             }
             final String properTargetName = target.getName();
-            if (((J2MC_Teleport) this.plugin).tpBannedPlayers.containsKey(properTargetName)) {
+            if (this.plugin.tpBannedPlayers.containsKey(properTargetName)) {
                 this.plugin.getServer().getScheduler().cancelTask(((J2MC_Teleport) this.plugin).tpBannedPlayers.remove(properTargetName));
                 target.sendMessage(ChatColor.RED + "Your teleport privileges have been restored.");
                 J2MC_Manager.getCore().adminAndLog(ChatColor.RED + sender.getName() + " restored " + properTargetName + "'s teleport privileges.");
@@ -36,7 +36,7 @@ public class TeleportBanCommand extends MasterCommand {
                 id = this.plugin.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
                     @Override
                     public void run() {
-                        ((J2MC_Teleport) plugin).tpBannedPlayers.remove(properTargetName);
+                        plugin.tpBannedPlayers.remove(properTargetName);
                         J2MC_Manager.getCore().adminAndLog(ChatColor.RED + properTargetName + "'s teleport privileges have been restored.");
                         Player p = plugin.getServer().getPlayer(properTargetName);
                         if (p != null) {
@@ -44,7 +44,7 @@ public class TeleportBanCommand extends MasterCommand {
                         }
                     }
                 }, 6000L);
-                ((J2MC_Teleport) this.plugin).tpBannedPlayers.put(target.getName(), id);
+                this.plugin.tpBannedPlayers.put(target.getName(), id);
                 target.sendMessage(ChatColor.RED + "Your teleport privileges have been temporarly revoked.");
                 J2MC_Manager.getCore().adminAndLog(ChatColor.RED + sender.getName() + " revoked " + properTargetName + "'s teleport privileges.");
             }

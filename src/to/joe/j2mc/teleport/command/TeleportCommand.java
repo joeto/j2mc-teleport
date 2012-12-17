@@ -9,7 +9,7 @@ import to.joe.j2mc.core.command.MasterCommand;
 import to.joe.j2mc.core.exceptions.BadPlayerMatchException;
 import to.joe.j2mc.teleport.J2MC_Teleport;
 
-public class TeleportCommand extends MasterCommand {
+public class TeleportCommand extends MasterCommand<J2MC_Teleport> {
 
     public TeleportCommand(J2MC_Teleport plugin) {
         super(plugin);
@@ -18,7 +18,7 @@ public class TeleportCommand extends MasterCommand {
     @Override
     public void exec(CommandSender sender, String commandName, String[] args, Player player, boolean isPlayer) {
         if (isPlayer) {
-            if (((J2MC_Teleport) this.plugin).tpBannedPlayers.containsKey(sender.getName())) {
+            if (this.plugin.tpBannedPlayers.containsKey(sender.getName())) {
                 player.sendMessage(ChatColor.RED + "Your teleport privileges have been temporarly revoked.");
                 player.sendMessage(ChatColor.RED + "Try again in a few minutes.");
                 return;
@@ -35,7 +35,7 @@ public class TeleportCommand extends MasterCommand {
                 player.sendMessage(ChatColor.RED + e.getMessage());
                 return;
             }
-            if (((J2MC_Teleport) this.plugin).isProtected(target.getName()) && !player.hasPermission("j2mc.teleport.override")) {
+            if (this.plugin.isProtected(target.getName()) && !player.hasPermission("j2mc.teleport.override")) {
                 player.sendMessage(ChatColor.RED + "Cannot teleport to protected player.");
             } else if (target.getName().equalsIgnoreCase(player.getName())) {
                 player.sendMessage(ChatColor.RED + "Can't teleport to yourself");
