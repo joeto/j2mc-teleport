@@ -30,6 +30,7 @@ public class TeleportBanCommand extends MasterCommand<J2MC_Teleport> {
             if (this.plugin.tpBannedPlayers.containsKey(properTargetName)) {
                 this.plugin.getServer().getScheduler().cancelTask(((J2MC_Teleport) this.plugin).tpBannedPlayers.remove(properTargetName));
                 target.sendMessage(ChatColor.RED + "Your teleport privileges have been restored.");
+                J2MC_Manager.getPermissions().delFlag(target, 'T');
                 J2MC_Manager.getCore().adminAndLog(ChatColor.RED + sender.getName() + " restored " + properTargetName + "'s teleport privileges.");
             } else {
                 Integer id;
@@ -40,11 +41,13 @@ public class TeleportBanCommand extends MasterCommand<J2MC_Teleport> {
                         J2MC_Manager.getCore().adminAndLog(ChatColor.RED + properTargetName + "'s teleport privileges have been restored.");
                         Player p = plugin.getServer().getPlayer(properTargetName);
                         if (p != null) {
+                            J2MC_Manager.getPermissions().delFlag(p, 'T');
                             p.sendMessage(ChatColor.RED + "Your teleport privileges have been restored.");
                         }
                     }
                 }, 6000L);
                 this.plugin.tpBannedPlayers.put(target.getName(), id);
+                J2MC_Manager.getPermissions().addFlag(target, 'T');
                 target.sendMessage(ChatColor.RED + "Your teleport privileges have been temporarly revoked.");
                 J2MC_Manager.getCore().adminAndLog(ChatColor.RED + sender.getName() + " revoked " + properTargetName + "'s teleport privileges.");
             }

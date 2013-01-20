@@ -166,6 +166,9 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
     }
 
     private void playerJoin(Player player) {
+        if (this.tpBannedPlayers.containsKey(player.getName())) {
+            J2MC_Manager.getPermissions().addFlag(player, 'T');
+        }
         this.warpLoad(player.getName());
         if (this.protectList.getBoolean(player.getName(), false)) {
             J2MC_Manager.getPermissions().addFlag(player, 'p');
