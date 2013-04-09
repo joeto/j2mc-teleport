@@ -65,6 +65,11 @@ commands:
     usage: /tpban <playername>
     permission: j2mc.teleport.ban
     permission-message: You may not use /tpban
+  bed:
+    description: Teleport back to your bed
+    usage: /<command>
+    permission: j2mc.teleport.bed
+    permission-message: You may not return your bed
 permissions:
   j2mc.teleport.home.visit:
     description: Homes
@@ -90,6 +95,8 @@ permissions:
     description: TP Ban
   j2mc.teleport.back:
     description: back in black
+  j2mc.teleport.bed:
+    description: tp to bed
   j2mc.teleport.normaluser:
     description: Normal
     children:

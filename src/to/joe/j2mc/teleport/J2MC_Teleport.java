@@ -1,5 +1,12 @@
 package to.joe.j2mc.teleport;
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -12,19 +19,21 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+
 import to.joe.j2mc.core.J2MC_Manager;
-import to.joe.j2mc.teleport.command.*;
+import to.joe.j2mc.teleport.command.BackCommand;
+import to.joe.j2mc.teleport.command.BedCommand;
+import to.joe.j2mc.teleport.command.HomeCommand;
+import to.joe.j2mc.teleport.command.ProtectMeCommand;
+import to.joe.j2mc.teleport.command.RemoveHomeCommand;
+import to.joe.j2mc.teleport.command.SetHomeCommand;
+import to.joe.j2mc.teleport.command.SpawnCommand;
+import to.joe.j2mc.teleport.command.TeleportCommand;
+import to.joe.j2mc.teleport.command.WarpCommand;
 import to.joe.j2mc.teleport.command.admin.HomeInvasionCommand;
 import to.joe.j2mc.teleport.command.admin.TeleportBanCommand;
 import to.joe.j2mc.teleport.command.admin.TeleportHereCommand;
 import to.joe.j2mc.teleport.util.ImmutableLocation;
-
-import java.io.File;
-import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
 
 public class J2MC_Teleport extends JavaPlugin implements Listener {
 
@@ -40,20 +49,20 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         try {
             ps = J2MC_Manager.getMySQL().getFreshPreparedStatementHotFromTheOven("insert into `teleport` (`warp_name`,`world`,`x`,`y`,`z`,`pitch`,`yaw`,`owner`,`server_id`) values (?,?,?,?,?,?,?,?,?)");
             ps.setString(1, name);
-            ps.setString(2,location.getWorld().getName());
-            ps.setDouble(3,location.getX());
+            ps.setString(2, location.getWorld().getName());
+            ps.setDouble(3, location.getX());
             ps.setDouble(4, location.getY());
             ps.setDouble(5, location.getZ());
             ps.setFloat(6, location.getPitch());
             ps.setFloat(7, location.getYaw());
-            ps.setString(8,owner);
+            ps.setString(8, owner);
             ps.setInt(9, J2MC_Manager.getServerID());
             ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
+
     public void deleteWarp(String owner, String name) {
         this.warps.get(owner).remove(name);
         try {
@@ -128,6 +137,7 @@ public class J2MC_Teleport extends JavaPlugin implements Listener {
         this.getCommand("tphere").setExecutor(new TeleportHereCommand(this));
         this.getCommand("tpban").setExecutor(new TeleportBanCommand(this));
         this.getCommand("back").setExecutor(new BackCommand(this));
+        this.getCommand("bed").setExecutor(new BedCommand(this));
 
         this.getLogger().info("Teleport module enabled");
     }
